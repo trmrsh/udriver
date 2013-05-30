@@ -1,0 +1,72 @@
+
+To set up this software, you must have 'java' and 'jar' in your path.
+This has been tested with 1.6; not known if it works with 1.5 or below,
+but it might do; it would have to be at least 1.4 in any case.
+
+To install:
+===========
+
+MySQL support
+-------------
+
+After Richard Hickman's upgrades of December 2009, udriver now has 
+(optional) access to a database of targets we have built from past 
+ULTRACAM runs. If you want to access this you need to install software 
+to connect to mysql. This is optional; if you don't have it, target 
+name lookups will not access the ULTRACAM database, but will be able 
+to access SIMBAD (assuming the network is alive that is). The officially 
+supported java/mysql link can be found at:
+
+http://dev.mysql.com/downloads/connector/j/
+
+All you need do is download the tar file, 'tar xvfz' it and put the file
+'mysql-connector-java-5.1.10-bin.jar' (version number may change) somewhere
+sensible. You need then to define an environment variable 'UDRIVERPATH' in
+order for udriver to pick it up as in (C-shell):
+
+setenv UDRIVERPATH $HOME/Java/mysql-connector-java-5.1.10-bin.jar
+
+and you are done
+
+The standard installation
+-------------------------
+
+After you have (or have not, you can do it later if you want) 
+installed the MySQL support then the installation is as before:
+
+cd src
+
+First look at the file 'Makefile'. The one line you may wish to alter is
+
+INSTALL_DIR         = $(HOME)/software/udriver-$(VERSION)
+
+which defines where the directory where software will be installed.
+
+Edit it as you wish. Then:
+
+touch udriver.conf
+gmake install
+
+and that's it.
+
+
+To run:
+-------
+
+Then type
+
+<installation directory>/bin/udriver
+
+to run the software. You may wish to set up an alias
+as in
+
+alias udriver <installation directory>/bin/udriver
+
+For further information, look at 
+http://deneb.astro.warwick.ac.uk/phsaap/ultracam/udriver/index.html
+or if you have installed everything OK, you should also have a local version
+called file:<installation directory>/html/index.html
+
+Let me know of any problems,
+
+Tom

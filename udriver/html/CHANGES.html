@@ -1,0 +1,244 @@
+<html>
+<head>
+<title>Udriver change log</title>
+<link rel=stylesheet href="ultracam.css" type="text/css">
+</head>
+<body>
+<h1>Udriver change log</h1>
+
+<p>
+This file records changes to the Udriver Java client to drive
+ULTRACAM.
+
+<p>
+
+<table>
+
+<tr valign="top"><td><strong>
+10/05/07
+</strong></td><td><i>
+Several<br>
+<font color="red">Version 2.1.0</font>
+</i></td><td>
+Changes to include the new u-band co-add parameter NBLUE. 
+Not tested however.
+</td></tr>
+
+<tr valign="top"><td><strong>
+17/11/06
+</strong></td><td><i>
+Several<br>
+<font color="red">Version 2.0.2</font>
+</i></td><td>
+A fair few changes, mainly in the way the software is set up.
+Some minor bugs ironed out of the IntegerTextField class.
+</td></tr>
+
+<tr valign="top"><td><strong>
+04/03/06
+</strong></td><td><i>
+Udriver.java<br>
+<font color="red">Version 2.0.1</font>
+</i></td><td>
+Minor bug that made it report an incorrect exposure time in 2 windows
+plus clear mode.
+</td></tr>
+
+<tr valign="top"><td><strong>
+02/09/05
+</strong></td><td><i>
+Udriver.java<br>
+<font color="red">Version 2.0.0</font>
+</i></td><td>
+Following the August run, where on several occasions we forgot to put
+the mask in or out, I have added an option which will prompt the user
+to remember the mask when one switches between standard and drift
+mode. I have also made some fairly major changes to allow for
+different telescopes better than I did before. One will now not need
+for example to change the configuration file when switching
+telescopes. The software is also rather cleaner in this area. Adding a
+new telescope now essentially requires adding some data at the top
+of Udriver.java. These changes are sufficiently extensive to warrant a
+major version change. Keep your old version available!
+</td></tr>
+
+<tr valign="top"><td><strong>
+14/05/05
+</strong></td><td><i>
+Udriver.java<br>
+<font color="red">Version 1.6</font>
+</i></td><td>
+Fixed bug whereby it was setting the 'ULTRACAM servers on' flag to the
+value of 'Expert mode'
+</td></tr>
+
+<tr valign="top"><td><strong>
+13/05/05
+</strong></td><td><i>
+Udriver.java<br>
+<font color="red">Version 1.5</font>
+</i></td><td>
+Window synchronisation added. This moves the windows onto a standard
+phasing when binning.
+</td></tr>
+
+<tr valign="top"><td><strong>
+05/05/05
+</strong></td><td><i>
+Udriver.java<br>
+<font color="red">Version 1.4</font>
+</i></td><td>
+simple reset of PCI no longer disables post application; removed
+'reset' from noddy mode. 'request from rtplot' message now only
+reported in DEBUG mode.
+</td></tr>
+
+<tr valign="top"><td><strong>
+05/05/05
+</strong></td><td><i>
+Udriver.java<br>
+<font color="red">Version 1.3</font>
+</i></td><td>
+fixed bug in that it was not updating the format 
+so repeatedly prompted for estimating the number of bytes per image.
+</td></tr>
+
+<tr valign="top"><td><strong>
+04/05/05
+</strong></td><td><i>
+Udriver.java<br>
+<font color="red">Version 1.2</font>
+</i></td><td>
+fixed bug in estimating the number of bytes per image.
+</td></tr>
+
+<tr valign="top"><td><strong>
+04/05/05
+</strong></td><td><i>
+Udriver.java
+</i></td><td>
+Made the value of the small exposure time entry = 5 on start up. Made
+reply from servers stay for any one command so that multiple commands
+such as the combined initialisation task give a complete record of
+what happened.
+</td></tr>
+
+<tr valign="top"><td><strong>
+25/04/05
+</strong></td><td><i>
+Udriver.java<br>
+<font color="red">Version 1.1</font>
+</i></td><td>
+More safety features added. These are (1) the settings buttons
+are disabled if you use a given setup for a run but have not saved
+it to disk, (2) you will be prompted for confirmation when you try to overwrite an
+existing application file. This is to reduce the chances of wiping out
+earlier setups. Restriction (1) is lifted in 'Expert' mode.
+</td></tr>
+
+<tr valign="top"><td><strong>
+30/03/05
+</strong></td><td><i>
+Udriver.java<br>
+<font color="red">Version 1.0</font>
+</i></td><td>
+Added signal-to-noise for 1 exposure field
+</td></tr>
+
+<tr valign="top"><td><strong>
+24/03/05
+</strong></td><td><i>
+IntegerTextField.java<br>
+DoubleTextField.java
+</i></td><td>
+Found that automatic increment could get into infinite loop, now fixed
+</td></tr>
+
+<tr valign="top"><td><strong>
+23/03/05
+</strong></td><td><i>
+Udriver.java<br>
+<font color="red">Version 0.6</font>
+</i></td><td>
+Lots more debugging. Added code to try to get run number; disabled settings
+option to define state of ULTRACAM servers during a run;
+added 'Timing test' application; brought numbers I use for
+signal-to-noise into line with Vik's; changed selection of sky
+brightness to radio button form; made colours of disk space monitor
+change as one approaches 2GB: 1500 MB changes to orange, 1800 changes
+to red; fixed a problem with the paste operation being re-enabled in
+numeric fields; added many more items of information to the 'Timing
+details' information message. First fully-featured version I think.
+</td></tr>
+
+<tr valign="top"><td><strong>
+22/03/05
+</strong></td><td><i>
+Udriver.java<br>
+<font color="red">Version 0.5</font>
+</i></td><td>
+'Start run' now only enabled after one has posted an
+application. 'Setup servers' greys out once you have done it.
+Changed polling interval for checking on active run; now it should
+be looking for correct part of XML I hope. Fixed exposure time bug.
+Put in checks for OK response from server. Put in noddy mode
+'Initialise' and 'Reset' buttons, with full complement appearing if
+one switches to expert. Added 'DEBUG' switch inside the configuration
+file. Once things have settled, it can be switched off.
+</td></tr>
+
+<tr valign="top"><td><strong>
+22/03/05
+</strong></td><td><i>
+Udriver.java<br>
+<font color="red">Version 0.4</font>
+</i></td><td>
+Added option of defining 0.1 millisecond increments on exposure
+delay. Enabled in expert mode only. Removed 'pipe shift' from 
+standard timing information as potentially confusing; still available
+from detailed timing pop-up. Changed floating point input to resemble
+the integer input. Put check for status of data server, but need Stu
+to check this.
+</td></tr>
+
+<tr valign="top"><td><strong>
+21/03/05
+</strong></td><td><i>
+Udriver.java<br>
+DoubleTextField.java
+</i></td><td>
+Improved input of floating point numbers such as magnitude so that
+they are pretty similar in fell to the integer input.
+</td></tr>
+
+<tr valign="top"><td><strong>
+18/03/05
+</strong></td><td><i>
+Udriver.java<br>
+udriver.conf<br>
+<font color="red">Version 0.2</font>
+</i></td><td>
+Fixed bug picked up by Stu in the execCommand method 
+which was sending the wrong string. Put /ultracam/config/xml as
+default directory for templates on server
+</td></tr>
+
+</table>
+
+<p>
+<hr>
+<address>
+Tom Marsh, Warwick
+</address> 
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

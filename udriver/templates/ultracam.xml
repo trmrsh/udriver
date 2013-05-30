@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+
+<!-- This XML document contains a description of the Ultracam instrument.
+
+     Author: Steven Beard
+  -->
+
+<instrument name="Ultracam" type="camera" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+   <description>  <!-- Textual description of the instrument (optional) -->
+Ultracam is a CCD camera controller with a revolutionary new software design.
+   </description>
+
+   <!-- A description of the Ultracam processors. (Ultracam has a PCI interface processor
+        and an sdsu controller processor
+     -->
+
+   <processor ref="pci_interface" name="PCI interface" xlink:href="pci_hardware.xml"/> 
+
+   <processor ref="controller" name="SDSU controller" xlink:href="sdsu_hardware.xml"/> 
+
+   <!-- Description of the Ultracam detectors -->
+
+   <!-- The mapping of this chip to the instrument focal plane specifies...
+
+        xshift = The difference in fpunits between the centre of the
+                 chip and the instrument optical axis, projected onto
+                 the instrument X axis.
+
+        yshift = The difference in fpunits between the centre of the
+                 chip and the instrument optical axis, projected onto
+                 the instrument Y axis.
+
+        xscale = The number of fpunits per pixel along the detector's
+                 column axis.
+
+        yscale = The number of fpunits per pixel along the detector's
+                 row axis.
+
+        rotation = Any rotation in degrees clockwise between the chip's
+                   column axis and the instrument's X axis. (Should be
+                   zero of they are perfectly aligned).
+
+        fpunits = The name of the focal plane units (e.g. microns).
+     -->
+
+   <detector id="red" type="CCD">  
+
+      <target_temperature>  <!-- Default target temperature for the detector -->
+233.0
+      </target_temperature>
+
+      <!-- One chip element for each detector chip -->
+
+      <chip id="1" name="Red" type="EEV CCD" columns="1024" rows="1024">
+
+         <!-- Mapping to instrument focal plane -->
+         <location xshift="-4.39" yshift="3.2" xscale="1.0" yscale="1.0" rotation="-0.0224" fpunits="pixels"/>  
+      </chip>
+
+   </detector>
+
+   <detector id="green" type="CCD">  
+
+      <target_temperature>  <!-- Default target temperature for the detector -->
+233.0
+      </target_temperature>
+
+      <!-- One chip element for each detector chip -->
+
+      <chip id="2" name="Green" type="EEV CCD" columns="1024" rows="1024">
+
+         <!-- Mapping to instrument focal plane -->
+         <location xshift="0.0" yshift="-1.7" xscale="1.0" yscale="1.0" rotation="0.661" fpunits="pixels"/>  
+      </chip>
+
+   </detector>
+
+   <detector id="blue" type="CCD">  
+
+      <target_temperature>  <!-- Default target temperature for the detector -->
+233.0
+      </target_temperature>
+
+      <!-- One chip element for each detector chip -->
+
+      <chip id="3" name="Blue" type="EEV CCD" columns="1024" rows="1024">
+
+         <!-- Mapping to instrument focal plane -->
+         <location xshift="0.75" yshift="0.0" xscale="1.0" yscale="1.0" rotation="0.657" fpunits="pixels"/>  
+      </chip>
+
+   </detector>
+
+</instrument>
+

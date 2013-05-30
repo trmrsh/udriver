@@ -1,0 +1,6 @@
+#!/bin/csh
+#
+# sets up fake servers
+
+java Server 5417&
+java Server 7063&
