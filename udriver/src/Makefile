@@ -18,7 +18,7 @@
 
 PACKAGE      = udriver
 MAIN         = Udriver
-VERSION      = 3.0.0
+VERSION      = 3
 
 TOP_DIR      = ../..
 BUILD_DIR    = ../build

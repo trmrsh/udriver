@@ -509,7 +509,7 @@ public class Udriver extends JFrame {
 	    // Set up basic frame
 	    // If you change the next string, you must change Makefile as well where
 	    // a sed operation changes the version number.
-	    this.setTitle("ULTRACAM window creator and driver, version 3.0.0");
+	    this.setTitle("ULTRACAM window creator and driver, version 3");
 	    this.setSize( 800, 400);
 	    
 	    // The basic layout is to have action buttons on the top-left, parameter controls on the top-right, 
