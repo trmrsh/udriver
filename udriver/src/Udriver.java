@@ -27,11 +27,14 @@ import java.awt.*;
 import java.awt.event.*;
 
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.HttpURLConnection;
 import java.net.SocketException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.net.Socket;
 import java.net.ServerSocket;
 
@@ -509,7 +512,7 @@ public class Udriver extends JFrame {
 	    // Set up basic frame
 	    // If you change the next string, you must change Makefile as well where
 	    // a sed operation changes the version number.
-	    this.setTitle("ULTRACAM window creator and driver, version 3");
+	    this.setTitle("ULTRACAM window creator and driver, version 4");
 	    this.setSize( 800, 400);
 	    
 	    // The basic layout is to have action buttons on the top-left, parameter controls on the top-right, 
@@ -1870,50 +1873,65 @@ public class Udriver extends JFrame {
     //------------------------------------------------------------------------------------------------------------------------------------------
 	//
 	private boolean _simbadExists(String target) {
-		String script = null;
-		String result = null;
-		script = "set limit 1\n";
-		script = script + "format object form1 \"%IDLIST(1) : %COO(A) : %COO(D)\"\n";
-		script = script + "echodata ** UDRIVER QUERY\n";
-		script = script + "query id " + target + "\n";
-		try{
+        int TIMEOUT = 2000; // timeout in millisecs
+        String script = null;
+        String result = null;
+        script = "set limit 1\n";
+        script = script + "format object form1 \"%IDLIST(1) : %COO(A) : %COO(D)\"\n";
+        script = script + "echodata ** UDRIVER QUERY\n";
+        script = script + "query id " + target + "\n";
+        try{
 			script = URLEncoder.encode(script,"ISO-8859-1");
-			URL simbadurl = new URL("http://simbad.u-strasbg.fr/simbad/sim-script?submit=submit+script&script=" + script);
-			result = _readText(simbadurl.openStream());
-			//System.out.println(result);
-		} catch(UnsupportedEncodingException uee) {
-			System.out.println(uee);
-		} catch(MalformedURLException mue) {
-			System.out.println(mue);
-		} catch(IOException ioe) {
-			System.out.println(ioe);
-		}
-		String [] simbad = result.split("\n");
-		int startline = 0;
-		for (int i = 0 ; i < simbad.length ; i++) {
-			if (simbad[i].indexOf("::data::") > -1) {
-				startline = i;
-			}
-			if (simbad[i].indexOf("::error::") > -1) {
-				System.out.println("Encountered simbad error");
-				return false;
-			}
-		}
-		for (int i = startline ; i < simbad.length ; i++) {
-			if (simbad[i].indexOf("** UDRIVER QUERY") > -1) {
-				if (simbad.length > (i+1)) {
-					if (simbad[i+1].split(":").length == 3) {
-						logPanel.add("SIMBAD lookup <strong>success.</strong>",LogPanel.OK,true);
-					} else {
-						return false;
-					}
-				} else {
-					return false;
-				}
-			}
-		}
-		return true;
+			URL simbadurl = new
+            URL("http://simbad.u-strasbg.fr/simbad/sim-script?submit=submit+script&script="
+                + script);
+            URLConnection simbadcon = simbadurl.openConnection();
+            simbadcon.setConnectTimeout(TIMEOUT);
+            simbadcon.setReadTimeout(TIMEOUT);
+            result = _readText(simbadcon.getInputStream());
+            //System.out.println(result);
 
+            String [] simbad = result.split("\n");
+            int startline = 0;
+            for (int i = 0 ; i < simbad.length ; i++) {
+                if (simbad[i].indexOf("::data::") > -1) {
+                    startline = i;
+                }
+                if (simbad[i].indexOf("::error::") > -1) {
+                    System.out.println("Encountered simbad error");
+                    return false;
+                }
+            }
+            for (int i = startline ; i < simbad.length ; i++) {
+                if (simbad[i].indexOf("** UDRIVER QUERY") > -1) {
+                    if (simbad.length > (i+1)) {
+                        if (simbad[i+1].split(":").length == 3) {
+                            logPanel.add(
+                                         "SIMBAD lookup <strong>success.</strong>",
+                                         LogPanel.OK,true);
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            return true;
+
+        } catch(SocketTimeoutException ste) {
+            System.out.println("simbad request timed out (>" + TIMEOUT +
+                               " milliseconds)");
+        } catch(UnknownHostException uhe) {
+            System.out.println(uhe);
+        } catch(UnsupportedEncodingException uee) {
+            System.out.println(uee);
+        } catch(MalformedURLException mue) {
+            System.out.println(mue);
+        } catch(IOException ioe) {
+            System.out.println(ioe);
+        }
+        return false;
 	}	
 	//
     //------------------------------------------------------------------------------------------------------------------------------------------
