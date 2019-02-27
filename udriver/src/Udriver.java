@@ -260,13 +260,13 @@ public class Udriver extends JFrame {
 
 	// Filters
 	private static final String[] BLUE_FILTER_NAMES = {
-		"u'","NBF3500","Clear","Lab","Special","(None)"
+		"Super u'","u'","NBF3500","Clear","Lab","Special","(None)"
 	};
 	private static final String[] GREEN_FILTER_NAMES = {
-		"g'","HeII","BCont","NBF4170","Clear","Lab","Special","(None)"
+		"Super g'", "g'","HeII","BCont","NBF4170","Clear","Lab","Special","(None)"
 	};
 	private static final String[] RED_FILTER_NAMES = {
-		"r'","i'","z'","RCont","NaI","HA-N","HA-B",
+		"Super r'","Super i'", "r'","i'","z'","RCont","NaI","HA-N","HA-B",
 		"Clear","Lab","Special","(None)"
 	};
 	private JComboBox _filter1;
@@ -275,7 +275,6 @@ public class Udriver extends JFrame {
 	private String defaultFilter1 = "u'";
 	private String defaultFilter2 = "g'";
 	private String defaultFilter3 = "r'";
-
 
     // Exposure delay measured in 0.1 millisecond intervals, so prompted
     // for in terms of millseconds plus a small text field of 0.1 milliseconds
@@ -1824,6 +1823,7 @@ public class Udriver extends JFrame {
 
 	private boolean _verifyTarget(String target) {
 		boolean exists = false;
+        /*
 		if (USE_UAC_DB) {
 			exists = _uacExists(target);
 		}
@@ -1835,8 +1835,10 @@ public class Udriver extends JFrame {
 				logPanel.add("Could not find target in UAC database or SIMBAD.",LogPanel.ERROR,false);
 			} else {
 				logPanel.add("SIMBAD lookup <strong>failed.</strong>",LogPanel.ERROR,false);
-			}
+                }
 		}
+        */
+        logPanel.add("SIMBAD lookup disabled",LogPanel.ERROR,false);
 		return exists;
 	}
 
@@ -4040,18 +4042,38 @@ public class Udriver extends JFrame {
 	addComponent( _windowPanel, Box.createVerticalStrut(20), 0, ypos++,  1, 1, GridBagConstraints.NONE, GridBagConstraints.WEST);
 	
 	if(OBSERVING_MODE){
-	    
-	    addComponent( _windowPanel, new JLabel("Target name"),     0, ypos,  1, 1, GridBagConstraints.NONE, GridBagConstraints.WEST);
-	    addComponent( _windowPanel, _objectText,     1, ypos,  5, 1, GridBagConstraints.NONE, GridBagConstraints.WEST);
+   
+	    addComponent( _windowPanel, new JLabel("Target name"),     0, ypos,  1, 1,
+                      GridBagConstraints.NONE, GridBagConstraints.WEST);
+	    addComponent( _windowPanel, _objectText,     1, ypos,  5, 1,
+                      GridBagConstraints.NONE, GridBagConstraints.WEST);
+
+        /* comment out simbad verification as its flaky */
+        /*
 		final JButton lookupButton = new JButton("Verify");
-		addComponent( _windowPanel, lookupButton, 5, ypos++, 5, 1, GridBagConstraints.NONE, GridBagConstraints.WEST);
-		lookupButton.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){ if (_verifyTarget(_objectText.getText())) { lookupButton.setBackground(GO_COLOUR); } else { lookupButton.setBackground(ERROR_COLOUR); } }});
+		addComponent( _windowPanel, lookupButton, 5, ypos++, 5, 1,
+                      GridBagConstraints.NONE, GridBagConstraints.WEST);
+		lookupButton.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e){
+                    if (_verifyTarget(_objectText.getText())) {
+                        lookupButton.setBackground(GO_COLOUR); 
+                    } else {
+                        lookupButton.setBackground(ERROR_COLOUR); 
+                    } 
+                }
+            });
 		_objectText.addKeyListener(new KeyListener(){
 			public void keyPressed(KeyEvent e){ lookupButton.setBackground(DEFAULT_COLOUR); }
 			public void keyReleased(KeyEvent e) {}
 			public void keyTyped(KeyEvent e) {}
 		});
-		addComponent( _windowPanel, new JLabel("Run type"), 0, ypos, 1, 1, GridBagConstraints.NONE, GridBagConstraints.WEST);
+        */
+        ypos++;
+
+		addComponent(
+                     _windowPanel, new JLabel("Run type"), 0, ypos, 1, 1,
+                     GridBagConstraints.NONE, GridBagConstraints.WEST
+                     );
 
 		_dataButton.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){_runType = "data"; _acquisitionState = false; _checkEnabledFields();}});
 		addComponent( _windowPanel, _dataButton,     1, ypos,  5, 1, GridBagConstraints.NONE, GridBagConstraints.WEST);
