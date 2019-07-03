@@ -266,7 +266,7 @@ public class Udriver extends JFrame {
 		"Super g'", "g'","HeII","BCont","NBF4170","Clear","Lab","Special","(None)"
 	};
 	private static final String[] RED_FILTER_NAMES = {
-		"Super r'","Super i'", "r'","i'","z'","RCont","NaI","HA-N","HA-B",
+	    "Super r'","Super i'", "Super z'", "r'","i'","z'","RCont","NaI","HA-N","HA-B",
 		"Clear","Lab","Special","(None)"
 	};
 	private JComboBox _filter1;
